@@ -74,7 +74,6 @@ import 'package:stories_editor/stories_editor.dart';
 
 ```dart
 StoriesEditor(
-    giphyKey: '[YOUR GIPHY API KEY]', /// (String) required param
     onDone: (String uri){
       /// uri is the local path of final render Uint8List
       /// here your code
@@ -138,7 +137,6 @@ class _ExampleState extends State<Example> {
           child: ElevatedButton(
             onPressed: (){
               Navigator.push(context, MaterialPageRoute(builder: (context) => StoriesEditor(
-                giphyKey: '[HERE YOUR API KEY]',
                 onDone: (uri){
                   debugPrint(uri);
                   Share.shareFiles([uri]);

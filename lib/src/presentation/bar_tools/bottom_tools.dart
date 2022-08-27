@@ -7,6 +7,8 @@ import 'package:stories_editor/src/domain/providers/notifiers/scroll_notifier.da
 import 'package:stories_editor/src/domain/sevices/save_as_image.dart';
 import 'package:stories_editor/src/presentation/widgets/animated_onTap_button.dart';
 
+import '../../domain/providers/notifiers/painting_notifier.dart';
+
 class BottomTools extends StatelessWidget {
   final GlobalKey contentKey;
   final Function(String imageUri) onDone;
@@ -15,11 +17,7 @@ class BottomTools extends StatelessWidget {
   /// editor background color
   final Color? editorBackgroundColor;
   const BottomTools(
-      {Key? key,
-      required this.contentKey,
-      required this.onDone,
-      this.onDoneButtonStyle,
-      this.editorBackgroundColor})
+      {Key? key, required this.contentKey, required this.onDone, this.onDoneButtonStyle, this.editorBackgroundColor})
       : super(key: key);
 
   @override
@@ -51,9 +49,7 @@ class BottomTools extends StatelessWidget {
                                 /// scroll to gridView page
                                 if (controlNotifier.mediaPath.isEmpty) {
                                   scrollNotifier.pageController.animateToPage(1,
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      curve: Curves.ease);
+                                      duration: const Duration(milliseconds: 300), curve: Curves.ease);
                                 }
                               },
                               child: const CoverThumbnail(
@@ -107,10 +103,7 @@ class BottomTools extends StatelessWidget {
                           const Text(
                             'Stories Creator',
                             style: TextStyle(
-                                color: Colors.white38,
-                                letterSpacing: 1.5,
-                                fontSize: 9.2,
-                                fontWeight: FontWeight.bold),
+                                color: Colors.white38, letterSpacing: 1.5, fontSize: 9.2, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -125,46 +118,43 @@ class BottomTools extends StatelessWidget {
                   scale: 0.9,
                   child: AnimatedOnTapButton(
                       onTap: () async {
-                        String pngUri;
-                        await takePicture(
-                                contentKey: contentKey,
-                                context: context,
-                                saveToGallery: false)
-                            .then((bytes) {
-                          if (bytes != null) {
-                            pngUri = bytes;
-                            onDone(pngUri);
-                          } else {}
-                        });
+                        final _paintingProvider = Provider.of<PaintingNotifier>(context, listen: false);
+                        final _widgetProvider = Provider.of<DraggableWidgetNotifier>(context, listen: false);
+
+                        if (_paintingProvider.lines.isNotEmpty || _widgetProvider.draggableWidget.isNotEmpty) {
+                          String pngUri;
+                          await takePicture(contentKey: contentKey, context: context, saveToGallery: false)
+                              .then((bytes) {
+                            if (bytes != null) {
+                              pngUri = bytes;
+                              onDone(pngUri);
+                            } else {}
+                          });
+                          return;
+                        }
+                        return onDone('');
                       },
                       child: onDoneButtonStyle ??
                           Container(
-                            padding: const EdgeInsets.only(
-                                left: 12, right: 5, top: 4, bottom: 4),
+                            padding: const EdgeInsets.only(left: 12, right: 5, top: 4, bottom: 4),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
-                                border: Border.all(
-                                    color: Colors.white, width: 1.5)),
-                            child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: const [
-                                  Text(
-                                    'Share',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        letterSpacing: 1.5,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 5),
-                                    child: Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: Colors.white,
-                                      size: 15,
-                                    ),
-                                  ),
-                                ]),
+                                border: Border.all(color: Colors.white, width: 1.5)),
+                            child: Row(mainAxisSize: MainAxisSize.min, children: const [
+                              Text(
+                                'Share',
+                                style: TextStyle(
+                                    color: Colors.white, letterSpacing: 1.5, fontSize: 16, fontWeight: FontWeight.w400),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 5),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Colors.white,
+                                  size: 15,
+                                ),
+                              ),
+                            ]),
                           )),
                 ),
               ),
@@ -179,9 +169,8 @@ class BottomTools extends StatelessWidget {
     return Container(
       height: 45,
       width: 45,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(width: 1.4, color: Colors.white)),
+      decoration:
+          BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(width: 1.4, color: Colors.white)),
       child: child,
     );
   }
