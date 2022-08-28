@@ -24,6 +24,12 @@ class StoriesEditorTextDelegate {
   String get shareButton => 'Share';
 
   String get tabTotypeHint => 'Tap to type';
+
+  String get snackbarSuccessMsg => 'Successfully Saved';
+
+  String get snackbarErrorMsg => 'Error';
+
+  String get snackbarEmptyMsg => 'Draft Empty';
 }
 
 class ArabicStoriesEditorTextDelegate extends StoriesEditorTextDelegate {
@@ -44,6 +50,12 @@ class ArabicStoriesEditorTextDelegate extends StoriesEditorTextDelegate {
   String get shareButton => 'شارك';
   @override
   String get tabTotypeHint => 'انقر للكتابة';
+  @override
+  String get snackbarSuccessMsg => ' تم الحفظ بنجاح';
+  @override
+  String get snackbarErrorMsg => 'خطأ';
+  @override
+  String get snackbarEmptyMsg => 'المسودة فارغة';
 }
 
 /// Obtain the text delegate from the given locale.
