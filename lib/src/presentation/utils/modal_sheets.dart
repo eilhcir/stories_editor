@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:modal_gif_picker/modal_gif_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:stories_editor/src/domain/models/editable_items.dart';
+import 'package:stories_editor/src/domain/models/modal_sheets.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/control_provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/draggable_widget_notifier.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/painting_notifier.dart';
@@ -14,7 +13,7 @@ import 'package:stories_editor/src/presentation/utils/constants/item_type.dart';
 import 'package:stories_editor/src/presentation/widgets/animated_onTap_button.dart';
 
 /// create item of type GIF
-Future createGiphyItem({required BuildContext context}) async {
+Future createStickerItem({required BuildContext context}) async {
   List<String> stickers = [
     '01_Cuppy_smile',
     '02_Cuppy_lol',
@@ -106,6 +105,7 @@ Future createGiphyItem({required BuildContext context}) async {
           ),
         );
       });
+      
   if (sticker != null) {
     final _editableItem = Provider.of<DraggableWidgetNotifier>(context, listen: false);
     _editableItem.sticker = sticker;
@@ -120,7 +120,11 @@ Future createGiphyItem({required BuildContext context}) async {
 }
 
 /// custom exit dialog
-Future<bool> exitDialog({required context, required contentKey}) async {
+Future<bool> exitDialog({
+  required context,
+  required contentKey,
+  required StoriesEditorTr modalTextTr,
+}) async {
   return (await showDialog(
         context: context,
         barrierColor: Colors.black38,
@@ -146,18 +150,25 @@ Future<bool> exitDialog({required context, required contentKey}) async {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  const Text(
-                    'Discard Edits?',
-                    style:
-                        TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white, letterSpacing: 0.5),
+                  Text(
+                    // 'Discard Edits?',
+                    modalTextTr.title,
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      letterSpacing: 0.5,
+                    ),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
-                    "If you go back now, you'll lose all the edits you've made.",
-                    style:
-                        TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white54, letterSpacing: 0.1),
+                  Text(
+                    // "If you go back now, you'll lose all the edits you've made.",
+                    modalTextTr.description,
+
+                    style: const TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white54, letterSpacing: 0.1),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(
@@ -171,7 +182,8 @@ Future<bool> exitDialog({required context, required contentKey}) async {
                       Navigator.of(context).pop(true);
                     },
                     child: Text(
-                      'Discard',
+                      // 'Discard',
+                      modalTextTr.discardAction,
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.redAccent.shade200,
@@ -204,10 +216,12 @@ Future<bool> exitDialog({required context, required contentKey}) async {
                         _dispose(context: context, message: 'Draft Empty');
                       }
                     },
-                    child: const Text(
-                      'Save Draft',
-                      style:
-                          TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 0.5),
+                    child: Text(
+                      // 'Save Draft',s
+                      modalTextTr.saveDraftAction,
+
+                      style: const TextStyle(
+                          fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 0.5),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -223,10 +237,12 @@ Future<bool> exitDialog({required context, required contentKey}) async {
                     onTap: () {
                       Navigator.of(context).pop(false);
                     },
-                    child: const Text(
-                      'Cancel',
-                      style:
-                          TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 0.5),
+                    child: Text(
+                      // 'Cancel',
+                      modalTextTr.cancelAction,
+
+                      style: const TextStyle(
+                          fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 0.5),
                       textAlign: TextAlign.center,
                     ),
                   ),

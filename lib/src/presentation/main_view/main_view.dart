@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
@@ -10,6 +9,7 @@ import 'package:gallery_media_picker/gallery_media_picker.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:provider/provider.dart';
 import 'package:stories_editor/src/domain/models/editable_items.dart';
+import 'package:stories_editor/src/domain/models/modal_sheets.dart';
 import 'package:stories_editor/src/domain/models/painting_model.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/control_provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/draggable_widget_notifier.dart';
@@ -29,14 +29,17 @@ import 'package:stories_editor/src/presentation/utils/modal_sheets.dart';
 import 'package:stories_editor/src/presentation/widgets/animated_onTap_button.dart';
 import 'package:stories_editor/src/presentation/widgets/scrollable_pageView.dart';
 
+
 class MainView extends StatefulWidget {
   /// editor custom font families
   final List<String>? fontFamilyList;
 
+  /// dialog modal text translation
+  final StoriesEditorTr modalTextTr;
+
   /// editor custom font families package
   final bool? isCustomFontList;
 
- 
   /// editor custom color gradients
   final List<List<Color>>? gradientColors;
 
@@ -60,19 +63,20 @@ class MainView extends StatefulWidget {
 
   /// editor custom color palette list
   List<Color>? colorList;
-  MainView(
-      {Key? key,
-      required this.onDone,
-      this.middleBottomWidget,
-      this.colorList,
-      this.isCustomFontList,
-      this.fontFamilyList,
-      this.gradientColors,
-      this.onBackPress,
-      this.onDoneButtonStyle,
-      this.editorBackgroundColor,
-      this.galleryThumbnailQuality})
-      : super(key: key);
+  MainView({
+    Key? key,
+    required this.onDone,
+    required this.modalTextTr,
+    this.middleBottomWidget,
+    this.colorList,
+    this.isCustomFontList,
+    this.fontFamilyList,
+    this.gradientColors,
+    this.onBackPress,
+    this.onDoneButtonStyle,
+    this.editorBackgroundColor,
+    this.galleryThumbnailQuality,
+  }) : super(key: key);
 
   @override
   _MainViewState createState() => _MainViewState();
@@ -291,6 +295,7 @@ class _MainViewState extends State<MainView> {
                           child: TopTools(
                             contentKey: contentKey,
                             context: context,
+                            modalTextTr: widget.modalTextTr,
                           )),
                     ),
 
@@ -406,7 +411,12 @@ class _MainViewState extends State<MainView> {
 
     /// show close dialog
     else if (!controlNotifier.isTextEditing && !controlNotifier.isPainting) {
-      return widget.onBackPress ?? exitDialog(context: context, contentKey: contentKey);
+      return widget.onBackPress ??
+          exitDialog(
+            context: context,
+            contentKey: contentKey,
+            modalTextTr: widget.modalTextTr,
+          );
     }
     return false;
   }

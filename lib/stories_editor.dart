@@ -4,6 +4,7 @@ library stories_editor;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:stories_editor/src/domain/models/modal_sheets.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/control_provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/draggable_widget_notifier.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/gradient_notifier.dart';
@@ -13,6 +14,7 @@ import 'package:stories_editor/src/domain/providers/notifiers/text_editing_notif
 import 'package:stories_editor/src/presentation/main_view/main_view.dart';
 
 export 'package:stories_editor/stories_editor.dart';
+export 'package:stories_editor/src/domain/models/modal_sheets.dart';
 
 class StoriesEditor extends StatefulWidget {
   /// editor custom font families
@@ -20,6 +22,9 @@ class StoriesEditor extends StatefulWidget {
 
   /// editor custom font families package
   final bool? isCustomFontList;
+
+  // dialog text translation
+  final StoriesEditorTr modalTextTr;
 
   /// editor custom color gradients
   final List<List<Color>>? gradientColors;
@@ -48,6 +53,7 @@ class StoriesEditor extends StatefulWidget {
   const StoriesEditor(
       {Key? key,
       required this.onDone,
+      required this.modalTextTr,
       this.middleBottomWidget,
       this.colorList,
       this.gradientColors,
@@ -68,8 +74,7 @@ class _StoriesEditorState extends State<StoriesEditor> {
   void initState() {
     Paint.enableDithering = true;
     WidgetsFlutterBinding.ensureInitialized();
-    SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.black,
     ));
@@ -95,6 +100,7 @@ class _StoriesEditorState extends State<StoriesEditor> {
         ChangeNotifierProvider(create: (_) => TextEditingNotifier()),
       ],
       child: MainView(
+        modalTextTr: widget.modalTextTr,
         onDone: widget.onDone,
         fontFamilyList: widget.fontFamilyList,
         isCustomFontList: widget.isCustomFontList,

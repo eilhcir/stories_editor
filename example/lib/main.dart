@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:stories_editor/stories_editor.dart';
 
 void main() {
@@ -41,9 +40,14 @@ class _ExampleState extends State<Example> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => StoriesEditor(
-                    //fontFamilyList: const ['Shizuru', 'Aladin'],
+                    modalTextTr: StoriesEditorTr(
+                      title: 'title',
+                      description: 'description',
+                      saveDraftAction: 'save',
+                      discardAction: 'discard',
+                      cancelAction: 'cancel',
+                    ),
                     galleryThumbnailQuality: 300,
-                    //isCustomFontList: true,
                     middleBottomWidget: const SizedBox.shrink(),
                     onDoneButtonStyle: Container(
                       height: 50,

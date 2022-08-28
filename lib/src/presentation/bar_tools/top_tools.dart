@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:stories_editor/src/domain/models/modal_sheets.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/control_provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/draggable_widget_notifier.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/painting_notifier.dart';
@@ -12,7 +13,14 @@ import 'package:stories_editor/src/presentation/widgets/tool_button.dart';
 class TopTools extends StatefulWidget {
   final GlobalKey contentKey;
   final BuildContext context;
-  const TopTools({Key? key, required this.contentKey, required this.context}) : super(key: key);
+  final StoriesEditorTr modalTextTr;
+
+  const TopTools({
+    Key? key,
+    required this.contentKey,
+    required this.context,
+    required this.modalTextTr,
+  }) : super(key: key);
 
   @override
   _TopToolsState createState() => _TopToolsState();
@@ -39,7 +47,11 @@ class _TopToolsState extends State<TopTools> {
                     ),
                     backGroundColor: Colors.black12,
                     onTap: () async {
-                      var res = await exitDialog(context: widget.context, contentKey: widget.contentKey);
+                      var res = await exitDialog(
+                        context: widget.context,
+                        contentKey: widget.contentKey,
+                        modalTextTr: widget.modalTextTr,
+                      );
                       if (res) {
                         Navigator.pop(context);
                       }
@@ -86,7 +98,7 @@ class _TopToolsState extends State<TopTools> {
                       size: 20,
                     ),
                     backGroundColor: Colors.black12,
-                    onTap: () => createGiphyItem(context: context)),
+                    onTap: () => createStickerItem(context: context)),
                 ToolButton(
                     child: const ImageIcon(
                       AssetImage('assets/icons/draw.png', package: 'stories_editor'),
