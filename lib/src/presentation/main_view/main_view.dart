@@ -268,7 +268,7 @@ class _MainViewState extends State<MainView> {
                         child: Align(
                           alignment: const Alignment(0, -0.1),
                           child: Text(
-                            'Tap to type',
+                            textDelegate.tabTotypeHint,
                             style: TextStyle(
                               fontFamily: 'Alegreya',
                               package: 'stories_editor',
