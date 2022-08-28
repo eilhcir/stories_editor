@@ -210,12 +210,12 @@ Future<bool> exitDialog({
                         /// save image
                         var response = await takePicture(contentKey: contentKey, context: context, saveToGallery: true);
                         if (response) {
-                          _dispose(context: context, message: 'Successfully saved');
+                          _dispose(context: context, message: textDelegate.snackbarSuccessMsg);
                         } else {
-                          _dispose(context: context, message: 'Error');
+                          _dispose(context: context, message: textDelegate.snackbarErrorMsg);
                         }
                       } else {
-                        _dispose(context: context, message: 'Draft Empty');
+                        _dispose(context: context, message: textDelegate.snackbarEmptyMsg);
                       }
                     },
                     child: Text(
