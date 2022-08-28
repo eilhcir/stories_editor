@@ -9,6 +9,7 @@ import 'package:stories_editor/src/domain/providers/notifiers/painting_notifier.
 import 'package:stories_editor/src/domain/providers/notifiers/text_editing_notifier.dart';
 import 'package:stories_editor/src/domain/sevices/save_as_image.dart';
 import 'package:stories_editor/src/presentation/utils/Extensions/hexColor.dart';
+import 'package:stories_editor/src/presentation/utils/constants/constants.dart';
 import 'package:stories_editor/src/presentation/utils/constants/item_type.dart';
 import 'package:stories_editor/src/presentation/widgets/animated_onTap_button.dart';
 
@@ -105,7 +106,7 @@ Future createStickerItem({required BuildContext context}) async {
           ),
         );
       });
-      
+
   if (sticker != null) {
     final _editableItem = Provider.of<DraggableWidgetNotifier>(context, listen: false);
     _editableItem.sticker = sticker;
@@ -123,7 +124,7 @@ Future createStickerItem({required BuildContext context}) async {
 Future<bool> exitDialog({
   required context,
   required contentKey,
-  required StoriesEditorTr modalTextTr,
+  required StoriesEditorTextDelegate textDelegate,
 }) async {
   return (await showDialog(
         context: context,
@@ -152,7 +153,8 @@ Future<bool> exitDialog({
                 children: <Widget>[
                   Text(
                     // 'Discard Edits?',
-                    modalTextTr.title,
+                    // modalTextTr.title,
+                    textDelegate.exitDialogTitle,
                     style: const TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w600,
@@ -165,7 +167,7 @@ Future<bool> exitDialog({
                   ),
                   Text(
                     // "If you go back now, you'll lose all the edits you've made.",
-                    modalTextTr.description,
+                    textDelegate.exitDialogDescription,
 
                     style: const TextStyle(
                         fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white54, letterSpacing: 0.1),
@@ -183,7 +185,7 @@ Future<bool> exitDialog({
                     },
                     child: Text(
                       // 'Discard',
-                      modalTextTr.discardAction,
+                      textDelegate.exitDiscard,
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.redAccent.shade200,
@@ -218,7 +220,7 @@ Future<bool> exitDialog({
                     },
                     child: Text(
                       // 'Save Draft',s
-                      modalTextTr.saveDraftAction,
+                      textDelegate.exitSaveDraft,
 
                       style: const TextStyle(
                           fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 0.5),
@@ -239,8 +241,7 @@ Future<bool> exitDialog({
                     },
                     child: Text(
                       // 'Cancel',
-                      modalTextTr.cancelAction,
-
+                      textDelegate.exitCancel,
                       style: const TextStyle(
                           fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 0.5),
                       textAlign: TextAlign.center,
