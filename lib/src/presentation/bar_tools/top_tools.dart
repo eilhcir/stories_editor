@@ -13,13 +13,13 @@ import 'package:stories_editor/src/presentation/widgets/tool_button.dart';
 class TopTools extends StatefulWidget {
   final GlobalKey contentKey;
   final BuildContext context;
-  final StoriesEditorTr modalTextTr;
+  final StoriesEditorTextDelegate textDelegate;
 
   const TopTools({
     Key? key,
     required this.contentKey,
     required this.context,
-    required this.modalTextTr,
+    required this.textDelegate,
   }) : super(key: key);
 
   @override
@@ -50,7 +50,7 @@ class _TopToolsState extends State<TopTools> {
                       var res = await exitDialog(
                         context: widget.context,
                         contentKey: widget.contentKey,
-                        modalTextTr: widget.modalTextTr,
+                        textDelegate: widget.textDelegate,
                       );
                       if (res) {
                         Navigator.pop(context);

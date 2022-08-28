@@ -40,13 +40,6 @@ class _ExampleState extends State<Example> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => StoriesEditor(
-                    modalTextTr: StoriesEditorTr(
-                      title: 'title',
-                      description: 'description',
-                      saveDraftAction: 'save',
-                      discardAction: 'discard',
-                      cancelAction: 'cancel',
-                    ),
                     galleryThumbnailQuality: 300,
                     middleBottomWidget: const SizedBox.shrink(),
                     onDoneButtonStyle: Container(

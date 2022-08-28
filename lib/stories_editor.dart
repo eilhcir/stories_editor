@@ -12,6 +12,7 @@ import 'package:stories_editor/src/domain/providers/notifiers/painting_notifier.
 import 'package:stories_editor/src/domain/providers/notifiers/scroll_notifier.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/text_editing_notifier.dart';
 import 'package:stories_editor/src/presentation/main_view/main_view.dart';
+import 'package:stories_editor/src/presentation/utils/constants/constants.dart';
 
 export 'package:stories_editor/stories_editor.dart';
 export 'package:stories_editor/src/domain/models/modal_sheets.dart';
@@ -23,8 +24,9 @@ class StoriesEditor extends StatefulWidget {
   /// editor custom font families package
   final bool? isCustomFontList;
 
+  final Locale? locale;
   // dialog text translation
-  final StoriesEditorTr modalTextTr;
+  final StoriesEditorTextDelegate? textDelegate;
 
   /// editor custom color gradients
   final List<List<Color>>? gradientColors;
@@ -53,7 +55,8 @@ class StoriesEditor extends StatefulWidget {
   const StoriesEditor(
       {Key? key,
       required this.onDone,
-      required this.modalTextTr,
+      this.textDelegate,
+      this.locale,
       this.middleBottomWidget,
       this.colorList,
       this.gradientColors,
@@ -72,6 +75,7 @@ class StoriesEditor extends StatefulWidget {
 class _StoriesEditorState extends State<StoriesEditor> {
   @override
   void initState() {
+    Constants.textDelegate = widget.textDelegate ?? cameraPickerTextDelegateFromLocale(widget.locale);
     Paint.enableDithering = true;
     WidgetsFlutterBinding.ensureInitialized();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -100,7 +104,6 @@ class _StoriesEditorState extends State<StoriesEditor> {
         ChangeNotifierProvider(create: (_) => TextEditingNotifier()),
       ],
       child: MainView(
-        modalTextTr: widget.modalTextTr,
         onDone: widget.onDone,
         fontFamilyList: widget.fontFamilyList,
         isCustomFontList: widget.isCustomFontList,

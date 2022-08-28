@@ -24,18 +24,15 @@ import 'package:stories_editor/src/presentation/draggable_items/draggable_widget
 import 'package:stories_editor/src/presentation/painting_view/painting.dart';
 import 'package:stories_editor/src/presentation/painting_view/widgets/sketcher.dart';
 import 'package:stories_editor/src/presentation/text_editor_view/TextEditor.dart';
+import 'package:stories_editor/src/presentation/utils/constants/constants.dart';
 import 'package:stories_editor/src/presentation/utils/constants/item_type.dart';
 import 'package:stories_editor/src/presentation/utils/modal_sheets.dart';
 import 'package:stories_editor/src/presentation/widgets/animated_onTap_button.dart';
 import 'package:stories_editor/src/presentation/widgets/scrollable_pageView.dart';
 
-
 class MainView extends StatefulWidget {
   /// editor custom font families
   final List<String>? fontFamilyList;
-
-  /// dialog modal text translation
-  final StoriesEditorTr modalTextTr;
 
   /// editor custom font families package
   final bool? isCustomFontList;
@@ -66,7 +63,6 @@ class MainView extends StatefulWidget {
   MainView({
     Key? key,
     required this.onDone,
-    required this.modalTextTr,
     this.middleBottomWidget,
     this.colorList,
     this.isCustomFontList,
@@ -101,6 +97,7 @@ class _MainViewState extends State<MainView> {
 
   /// screen size
   final _screenSize = MediaQueryData.fromWindow(WidgetsBinding.instance!.window);
+  StoriesEditorTextDelegate get textDelegate => Constants.textDelegate;
 
   @override
   void initState() {
@@ -270,20 +267,23 @@ class _MainViewState extends State<MainView> {
                         ignoring: true,
                         child: Align(
                           alignment: const Alignment(0, -0.1),
-                          child: Text('Tap to type',
-                              style: TextStyle(
-                                  fontFamily: 'Alegreya',
-                                  package: 'stories_editor',
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 30,
-                                  color: Colors.white.withOpacity(0.5),
-                                  shadows: <Shadow>[
-                                    Shadow(
-                                      offset: const Offset(1.0, 1.0),
-                                      blurRadius: 3.0,
-                                      color: Colors.black45.withOpacity(0.3),
-                                    )
-                                  ])),
+                          child: Text(
+                            textDelegate.tabTotypeHint,
+                            style: TextStyle(
+                              fontFamily: 'Alegreya',
+                              package: 'stories_editor',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 30,
+                              color: Colors.white.withOpacity(0.5),
+                              shadows: <Shadow>[
+                                Shadow(
+                                  offset: const Offset(1.0, 1.0),
+                                  blurRadius: 3.0,
+                                  color: Colors.black45.withOpacity(0.3),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
                       ),
 
@@ -295,7 +295,7 @@ class _MainViewState extends State<MainView> {
                           child: TopTools(
                             contentKey: contentKey,
                             context: context,
-                            modalTextTr: widget.modalTextTr,
+                            textDelegate: textDelegate,
                           )),
                     ),
 
@@ -415,7 +415,7 @@ class _MainViewState extends State<MainView> {
           exitDialog(
             context: context,
             contentKey: contentKey,
-            modalTextTr: widget.modalTextTr,
+            textDelegate: textDelegate,
           );
     }
     return false;
