@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
@@ -93,7 +94,15 @@ Future createStickerItem({required BuildContext context, List<String>? stickers}
                             onTap: () => Navigator.pop(context, stickers[index]),
                             child: Image.network(
                               stickers[index],
-                              errorBuilder: (context, error, stackTrace) => const Text('404'),
+                              errorBuilder: (context, error, stackTrace) => const Center(
+                                child: Text(
+                                  'Image Not Found',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                              loadingBuilder: (context, child, loadingProgress) => const CupertinoActivityIndicator(),
                             ),
                           ),
                         ),
