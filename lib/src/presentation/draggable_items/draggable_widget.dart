@@ -113,7 +113,14 @@ class DraggableWidget extends StatelessWidget {
               Center(
                 child: Image.network(
                   draggableWidget.sticker,
-                  errorBuilder: (context, error, stackTrace) => const Text('404'),
+                  errorBuilder: (context, error, stackTrace) => const Center(
+                    child: Text(
+                      'Image Not Found',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                 ),
                 // child: Container(
                 //   alignment: Alignment.center,
