@@ -43,8 +43,9 @@ Future createStickerItem({required BuildContext context, List<String>? stickers}
   //   '25_Cuppy_battery',
   //   'tray_Cuppy',
   // ];
+  late String? sticker;
 
-  String sticker = await showModalBottomSheet(
+  sticker = await showModalBottomSheet(
       context: context,
       barrierColor: Colors.transparent,
       backgroundColor: Colors.transparent,
@@ -100,6 +101,7 @@ Future createStickerItem({required BuildContext context, List<String>? stickers}
                                   style: TextStyle(
                                     color: Colors.white,
                                   ),
+                                  textAlign: TextAlign.center,
                                 ),
                               ),
                               loadingBuilder: (context, child, loadingProgress) => const CupertinoActivityIndicator(),
@@ -116,15 +118,17 @@ Future createStickerItem({required BuildContext context, List<String>? stickers}
         );
       });
 
-  final _editableItem = Provider.of<DraggableWidgetNotifier>(context, listen: false);
-  _editableItem.sticker = sticker;
+  if (sticker != null) {
+    final _editableItem = Provider.of<DraggableWidgetNotifier>(context, listen: false);
+    _editableItem.sticker = sticker;
 
-  _editableItem.draggableWidget.add(
-    EditableItem()
-      ..type = ItemType.sticker
-      ..sticker = _editableItem.sticker!
-      ..position = const Offset(0.0, 0.0),
-  );
+    _editableItem.draggableWidget.add(
+      EditableItem()
+        ..type = ItemType.sticker
+        ..sticker = _editableItem.sticker!
+        ..position = const Offset(0.0, 0.0),
+    );
+  }
 }
 
 /// custom exit dialog

@@ -135,20 +135,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.7"
-  http:
-    dependency: transitive
-    description:
-      name: http
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.13.4"
-  http_parser:
-    dependency: transitive
-    description:
-      name: http_parser
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.0.0"
   image:
     dependency: transitive
     description:
@@ -212,13 +198,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
-  modal_gif_picker:
-    dependency: transitive
-    description:
-      name: modal_gif_picker
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.1"
   nested:
     dependency: transitive
     description:
