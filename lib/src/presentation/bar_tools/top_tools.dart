@@ -14,12 +14,14 @@ class TopTools extends StatefulWidget {
   final GlobalKey contentKey;
   final BuildContext context;
   final StoriesEditorTextDelegate textDelegate;
+  final List<String>? stickers;
 
   const TopTools({
     Key? key,
     required this.contentKey,
     required this.context,
     required this.textDelegate,
+    this.stickers,
   }) : super(key: key);
 
   @override
@@ -98,7 +100,7 @@ class _TopToolsState extends State<TopTools> {
                       size: 20,
                     ),
                     backGroundColor: Colors.black12,
-                    onTap: () => createStickerItem(context: context)),
+                    onTap: () => createStickerItem(context: context, stickers: widget.stickers)),
                 ToolButton(
                     child: const ImageIcon(
                       AssetImage('assets/icons/draw.png', package: 'stories_editor'),

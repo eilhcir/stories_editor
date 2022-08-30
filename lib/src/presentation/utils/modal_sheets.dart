@@ -9,40 +9,40 @@ import 'package:stories_editor/src/domain/providers/notifiers/painting_notifier.
 import 'package:stories_editor/src/domain/providers/notifiers/text_editing_notifier.dart';
 import 'package:stories_editor/src/domain/sevices/save_as_image.dart';
 import 'package:stories_editor/src/presentation/utils/Extensions/hexColor.dart';
-import 'package:stories_editor/src/presentation/utils/constants/constants.dart';
 import 'package:stories_editor/src/presentation/utils/constants/item_type.dart';
 import 'package:stories_editor/src/presentation/widgets/animated_onTap_button.dart';
 
-/// create item of type GIF
-Future createStickerItem({required BuildContext context}) async {
-  List<String> stickers = [
-    '01_Cuppy_smile',
-    '02_Cuppy_lol',
-    '03_Cuppy_rofl',
-    '04_Cuppy_sad',
-    '05_Cuppy_cry',
-    '06_Cuppy_love',
-    '07_Cuppy_hate',
-    '08_Cuppy_lovewithmug',
-    '09_Cuppy_lovewithcookie',
-    '10_Cuppy_hmm',
-    '11_Cuppy_upset',
-    '12_Cuppy_angry',
-    '13_Cuppy_curious',
-    '14_Cuppy_weird',
-    '15_Cuppy_bluescreen',
-    '16_Cuppy_angry',
-    '17_Cuppy_tired',
-    '18_Cuppy_workhard',
-    '19_Cuppy_shine',
-    '20_Cuppy_disgusting',
-    '21_Cuppy_hi',
-    '22_Cuppy_bye',
-    '23_Cuppy_greentea',
-    '24_Cuppy_phone',
-    '25_Cuppy_battery',
-    'tray_Cuppy',
-  ];
+/// create item of type Stickers
+Future createStickerItem({required BuildContext context, List<String>? stickers}) async {
+  // List<String> stickers = [
+  //   '01_Cuppy_smile',
+  //   '02_Cuppy_lol',
+  //   '03_Cuppy_rofl',
+  //   '04_Cuppy_sad',
+  //   '05_Cuppy_cry',
+  //   '06_Cuppy_love',
+  //   '07_Cuppy_hate',
+  //   '08_Cuppy_lovewithmug',
+  //   '09_Cuppy_lovewithcookie',
+  //   '10_Cuppy_hmm',
+  //   '11_Cuppy_upset',
+  //   '12_Cuppy_angry',
+  //   '13_Cuppy_curious',
+  //   '14_Cuppy_weird',
+  //   '15_Cuppy_bluescreen',
+  //   '16_Cuppy_angry',
+  //   '17_Cuppy_tired',
+  //   '18_Cuppy_workhard',
+  //   '19_Cuppy_shine',
+  //   '20_Cuppy_disgusting',
+  //   '21_Cuppy_hi',
+  //   '22_Cuppy_bye',
+  //   '23_Cuppy_greentea',
+  //   '24_Cuppy_phone',
+  //   '25_Cuppy_battery',
+  //   'tray_Cuppy',
+  // ];
+
   String sticker = await showModalBottomSheet(
       context: context,
       barrierColor: Colors.transparent,
@@ -86,14 +86,14 @@ Future createStickerItem({required BuildContext context}) async {
                             crossAxisSpacing: 8,
                             mainAxisSpacing: 8,
                           ),
-                          itemCount: stickers.length,
+                          itemCount: stickers!.length,
                           shrinkWrap: true,
                           padding: const EdgeInsets.all(5),
                           itemBuilder: (context, index) => GestureDetector(
                             onTap: () => Navigator.pop(context, stickers[index]),
-                            child: Image.asset(
-                              'assets/stickers/${stickers[index]}.png',
-                              package: 'stories_editor',
+                            child: Image.network(
+                              stickers[index],
+                              errorBuilder: (context, error, stackTrace) => const Text('404'),
                             ),
                           ),
                         ),
@@ -107,17 +107,15 @@ Future createStickerItem({required BuildContext context}) async {
         );
       });
 
-  if (sticker != null) {
-    final _editableItem = Provider.of<DraggableWidgetNotifier>(context, listen: false);
-    _editableItem.sticker = sticker;
+  final _editableItem = Provider.of<DraggableWidgetNotifier>(context, listen: false);
+  _editableItem.sticker = sticker;
 
-    _editableItem.draggableWidget.add(
-      EditableItem()
-        ..type = ItemType.sticker
-        ..sticker = _editableItem.sticker!
-        ..position = const Offset(0.0, 0.0),
-    );
-  }
+  _editableItem.draggableWidget.add(
+    EditableItem()
+      ..type = ItemType.sticker
+      ..sticker = _editableItem.sticker!
+      ..position = const Offset(0.0, 0.0),
+  );
 }
 
 /// custom exit dialog

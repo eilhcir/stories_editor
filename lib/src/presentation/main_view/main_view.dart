@@ -40,6 +40,9 @@ class MainView extends StatefulWidget {
   /// editor custom color gradients
   final List<List<Color>>? gradientColors;
 
+  // url of network image
+  final List<String>? networkStickers;
+
   /// editor custom logo
   final Widget? middleBottomWidget;
 
@@ -63,6 +66,7 @@ class MainView extends StatefulWidget {
   MainView({
     Key? key,
     required this.onDone,
+    this.networkStickers,
     this.middleBottomWidget,
     this.colorList,
     this.isCustomFontList,
@@ -296,6 +300,7 @@ class _MainViewState extends State<MainView> {
                             contentKey: contentKey,
                             context: context,
                             textDelegate: textDelegate,
+                            stickers: widget.networkStickers,
                           )),
                     ),
 

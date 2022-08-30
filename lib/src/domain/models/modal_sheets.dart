@@ -59,7 +59,7 @@ class ArabicStoriesEditorTextDelegate extends StoriesEditorTextDelegate {
 }
 
 /// Obtain the text delegate from the given locale.
-StoriesEditorTextDelegate cameraPickerTextDelegateFromLocale(Locale? locale) {
+StoriesEditorTextDelegate StoriesEditorTextDelegateFromLocale(Locale? locale) {
   if (locale == null) {
     return const StoriesEditorTextDelegate();
   }

@@ -46,6 +46,9 @@ class StoriesEditor extends StatefulWidget {
   /// editor custom color palette list
   final List<Color>? colorList;
 
+  /// editor custom color palette list
+  final List<String>? networkStickers;
+
   /// editor background color
   final Color? editorBackgroundColor;
 
@@ -56,6 +59,7 @@ class StoriesEditor extends StatefulWidget {
       {Key? key,
       required this.onDone,
       this.textDelegate,
+      this.networkStickers,
       this.locale,
       this.middleBottomWidget,
       this.colorList,
@@ -75,7 +79,7 @@ class StoriesEditor extends StatefulWidget {
 class _StoriesEditorState extends State<StoriesEditor> {
   @override
   void initState() {
-    Constants.textDelegate = widget.textDelegate ?? cameraPickerTextDelegateFromLocale(widget.locale);
+    Constants.textDelegate = widget.textDelegate ?? StoriesEditorTextDelegateFromLocale(widget.locale);
     Paint.enableDithering = true;
     WidgetsFlutterBinding.ensureInitialized();
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -105,6 +109,7 @@ class _StoriesEditorState extends State<StoriesEditor> {
       ],
       child: MainView(
         onDone: widget.onDone,
+        networkStickers: widget.networkStickers,
         fontFamilyList: widget.fontFamilyList,
         isCustomFontList: widget.isCustomFontList,
         middleBottomWidget: widget.middleBottomWidget,

@@ -111,9 +111,9 @@ class DraggableWidget extends StatelessWidget {
             children: [
               /// create Gif widget
               Center(
-                child: Image.asset(
-                  'assets/stickers/${draggableWidget.sticker}.png',
-                  package: 'stories_editor',
+                child: Image.network(
+                  draggableWidget.sticker,
+                  errorBuilder: (context, error, stackTrace) => const Text('404'),
                 ),
                 // child: Container(
                 //   alignment: Alignment.center,
