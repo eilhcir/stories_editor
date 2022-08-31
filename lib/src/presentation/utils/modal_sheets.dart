@@ -59,60 +59,74 @@ Future createStickerItem({required BuildContext context, List<String>? stickers}
             minChildSize: 0.9,
             expand: true,
             builder: (BuildContext context, ScrollController scrollController) {
-              return Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.6),
-                    borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(16),
-                      topLeft: Radius.circular(16),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 10,
-                        spreadRadius: 16,
-                        color: Colors.black.withOpacity(0.3),
-                        offset: const Offset(0, 16),
-                      )
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 30),
-                      Expanded(
-                        child: GridView.builder(
-                          primary: false,
-                          controller: scrollController,
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 5,
-                            crossAxisSpacing: 8,
-                            mainAxisSpacing: 8,
-                          ),
-                          itemCount: stickers!.length,
-                          shrinkWrap: true,
-                          padding: const EdgeInsets.all(5),
-                          itemBuilder: (context, index) => GestureDetector(
-                            onTap: () => Navigator.pop(context, stickers[index]),
-                            child: Image.network(stickers[index],
-                                errorBuilder: (context, error, stackTrace) => const Center(
-                                      child: Text(
-                                        'Image Not Found',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                                  if (loadingProgress == null) return child;
-                                  return const Center(child: CupertinoActivityIndicator());
-                                }),
-                          ),
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 50.0,
+                    height: 20.0,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(36.0),
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.brown,
+                          boxShadow: [
+                            BoxShadow(color: Colors.black12, offset: Offset(3.0, 6.0), blurRadius: 10.0),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.6),
+                        borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(16),
+                          topLeft: Radius.circular(16),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 10,
+                            spreadRadius: 16,
+                            color: Colors.black.withOpacity(0.3),
+                            offset: const Offset(0, 16),
+                          )
+                        ],
+                      ),
+                      child: GridView.builder(
+                        primary: false,
+                        controller: scrollController,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 5,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                        ),
+                        itemCount: stickers!.length,
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.all(5),
+                        itemBuilder: (context, index) => GestureDetector(
+                          onTap: () => Navigator.pop(context, stickers[index]),
+                          child: Image.network(stickers[index],
+                              errorBuilder: (context, error, stackTrace) => const Center(
+                                    child: Text(
+                                      'Image Not Found',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                              loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return const Center(child: CupertinoActivityIndicator());
+                              }),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               );
             },
           ),
