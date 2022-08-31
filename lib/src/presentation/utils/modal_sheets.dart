@@ -65,19 +65,17 @@ Future createStickerItem({required BuildContext context, List<String>? stickers}
                 children: [
                   SizedBox(
                     width: 50.0,
-                    height: 20.0,
+                    height: 10.0,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(36.0),
                       child: Container(
                         decoration: const BoxDecoration(
-                          color: Colors.brown,
-                          boxShadow: [
-                            BoxShadow(color: Colors.black12, offset: Offset(3.0, 6.0), blurRadius: 10.0),
-                          ],
+                          color: Colors.grey,
                         ),
                       ),
                     ),
                   ),
+                  const SizedBox(height: 10.0),
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
