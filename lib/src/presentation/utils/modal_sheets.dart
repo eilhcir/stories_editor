@@ -93,34 +93,42 @@ Future createStickerItem({required BuildContext context, List<String>? stickers}
                           )
                         ],
                       ),
-                      child: GridView.builder(
-                        primary: false,
-                        controller: scrollController,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 5,
-                          crossAxisSpacing: 8,
-                          mainAxisSpacing: 8,
-                        ),
-                        itemCount: stickers!.length,
-                        shrinkWrap: true,
-                        padding: const EdgeInsets.all(5),
-                        itemBuilder: (context, index) => GestureDetector(
-                          onTap: () => Navigator.pop(context, stickers[index]),
-                          child: Image.network(stickers[index],
-                              errorBuilder: (context, error, stackTrace) => const Center(
-                                    child: Text(
-                                      'Image Not Found',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                              loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-                                if (loadingProgress == null) return child;
-                                return const Center(child: CupertinoActivityIndicator());
-                              }),
-                        ),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 5.0),
+                          Expanded(
+                            child: GridView.builder(
+                              primary: false,
+                              controller: scrollController,
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 5,
+                                crossAxisSpacing: 8,
+                                mainAxisSpacing: 8,
+                              ),
+                              itemCount: stickers!.length,
+                              shrinkWrap: true,
+                              padding: const EdgeInsets.all(5),
+                              itemBuilder: (context, index) => GestureDetector(
+                                onTap: () => Navigator.pop(context, stickers[index]),
+                                child: Image.network(stickers[index],
+                                    errorBuilder: (context, error, stackTrace) => const Center(
+                                          child: Text(
+                                            'Image Not Found',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                    loadingBuilder:
+                                        (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                      if (loadingProgress == null) return child;
+                                      return const Center(child: CupertinoActivityIndicator());
+                                    }),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
