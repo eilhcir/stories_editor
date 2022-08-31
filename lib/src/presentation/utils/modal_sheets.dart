@@ -105,13 +105,7 @@ Future createStickerItem({required BuildContext context, List<String>? stickers}
                                     ),
                                 loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
                                   if (loadingProgress == null) return child;
-                                  return Center(
-                                    child: CircularProgressIndicator(
-                                      value: loadingProgress.expectedTotalBytes != null
-                                          ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
-                                          : null,
-                                    ),
-                                  );
+                                  return const Center(child: CupertinoActivityIndicator());
                                 }),
                           ),
                         ),
