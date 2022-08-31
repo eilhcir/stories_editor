@@ -93,19 +93,26 @@ Future createStickerItem({required BuildContext context, List<String>? stickers}
                           padding: const EdgeInsets.all(5),
                           itemBuilder: (context, index) => GestureDetector(
                             onTap: () => Navigator.pop(context, stickers[index]),
-                            child: Image.network(
-                              stickers[index],
-                              errorBuilder: (context, error, stackTrace) => const Center(
-                                child: Text(
-                                  'Image Not Found',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              loadingBuilder: (context, child, loadingProgress) => const CupertinoActivityIndicator(),
-                            ),
+                            child: Image.network(stickers[index],
+                                errorBuilder: (context, error, stackTrace) => const Center(
+                                      child: Text(
+                                        'Image Not Found',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                                  if (loadingProgress == null) return child;
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      value: loadingProgress.expectedTotalBytes != null
+                                          ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                                          : null,
+                                    ),
+                                  );
+                                }),
                           ),
                         ),
                       ),
