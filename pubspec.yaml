@@ -27,7 +27,7 @@ dependencies:
   gallery_media_picker:
     git:
       url: https://github.com/camilo1498/gallery_media_picker.git
-      ref: 6e29d7f5d6a20211c8f46dbb2dd21b3ceb53c17c
+      ref: 2e82cfb1b2bce92daa2489ed3277f73ca537e27c
   # modal_gif_picker: ^0.0.1
   # painting
   perfect_freehand: ^1.0.4
