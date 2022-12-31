@@ -125,11 +125,11 @@ packages:
     dependency: transitive
     description:
       path: "."
-      ref: "8c463a1f944904f724b480dae9623b132d0f0ef9"
-      resolved-ref: "8c463a1f944904f724b480dae9623b132d0f0ef9"
+      ref: "6e29d7f5d6a20211c8f46dbb2dd21b3ceb53c17c"
+      resolved-ref: "6e29d7f5d6a20211c8f46dbb2dd21b3ceb53c17c"
       url: "https://github.com/camilo1498/gallery_media_picker.git"
     source: git
-    version: "0.0.7"
+    version: "0.0.8"
   image:
     dependency: transitive
     description:
