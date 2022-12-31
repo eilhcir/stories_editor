@@ -24,7 +24,10 @@ dependencies:
   #    ref: 8156907eecfa812b181a5a729d790f6d399f311b
   image_gallery_saver: ^1.7.1
   #own packages
-  gallery_media_picker: ^0.0.7
+  gallery_media_picker:
+    git:
+      url: https://github.com/camilo1498/gallery_media_picker.git
+      ref: bbbbb33c2c95d64bcc946c34bcea727d115af806
   # modal_gif_picker: ^0.0.1
   # painting
   perfect_freehand: ^1.0.4
