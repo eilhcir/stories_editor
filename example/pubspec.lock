@@ -125,11 +125,11 @@ packages:
     dependency: transitive
     description:
       path: "."
-      ref: bbbbb33c2c95d64bcc946c34bcea727d115af806
-      resolved-ref: bbbbb33c2c95d64bcc946c34bcea727d115af806
+      ref: "8c463a1f944904f724b480dae9623b132d0f0ef9"
+      resolved-ref: "8c463a1f944904f724b480dae9623b132d0f0ef9"
       url: "https://github.com/camilo1498/gallery_media_picker.git"
     source: git
-    version: "0.0.9"
+    version: "0.0.7"
   image:
     dependency: transitive
     description:
@@ -542,5 +542,5 @@ packages:
     source: hosted
     version: "6.1.0"
 sdks:
-  dart: ">=2.18.1 <3.0.0"
+  dart: ">=2.17.0 <3.0.0"
   flutter: ">=3.0.0"
